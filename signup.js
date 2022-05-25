@@ -19,11 +19,10 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
         return pdfData instanceof Blob ? await readBlobToBase64(pdfData) : pdfData;
     }
 
-
     async function onFileChange() {
-        let fileBytes = await getPdfData(this.files[0]);
+        let fileBase64 = await getPdfData(this.files[0]);
 
-        const loadingTask = pdfjsLib.getDocument(fileBytes);
+        const loadingTask = pdfjsLib.getDocument(fileBase64);
         return await loadingTask.promise
             .then((pdf) => {
                 pdf.getPage(1)
